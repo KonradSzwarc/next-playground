@@ -1,3 +1,148 @@
 {
-  "extends": "next/core-web-vitals"
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.eslint.json"
+  },
+  "plugins": ["file-progress", "simple-import-sort"],
+  "extends": [
+    "airbnb",
+    "airbnb-typescript",
+    "airbnb/hooks",
+    "plugin:react/jsx-runtime",
+    "plugin:@typescript-eslint/strict",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:eslint-comments/recommended",
+    "plugin:promise/recommended",
+    "plugin:unicorn/recommended",
+    "plugin:sonarjs/recommended",
+    "plugin:@next/next/recommended",
+    "prettier"
+  ],
+  "rules": {
+    // Requires all functions to take at most 3 parameters.
+    "max-params": [2, { "max": 3 }],
+
+    // Disallow some keywords and function invocations.
+    "no-restricted-syntax": [
+      2,
+      "LabeledStatement",
+      "WithStatement",
+      {
+        "selector": "CallExpression[callee.name='setTimeout'][arguments.length!=2]",
+        "message": "setTimeout requires a timeout value to be specified explicitly."
+      },
+      {
+        "selector": "CallExpression[callee.name='setInterval'][arguments.length!=2]",
+        "message": "setInterval requires an interval value to be specified explicitly."
+      },
+      {
+        "selector": "CallExpression[callee.property.name='reduce'][arguments.length!=2]",
+        "message": "reduce requires an initial value to be specified explicitly."
+      }
+    ],
+
+    /* eslint-comments */
+
+    // Removes eslint-disable comments when they are not needed.
+    "eslint-comments/no-unused-disable": 2,
+
+    // Ensure each eslint-disable has a description comment.
+    "eslint-comments/require-description": [2, { "ignore": ["eslint-enable"] }],
+
+    /* file-progress */
+
+    // Displays information about currently processing file in the console.
+    "file-progress/activate": 1,
+
+    /* import */
+
+    // We see no need to prevent single named exports.
+    "import/prefer-default-export": 0,
+
+    /* react */
+
+    // Write all components as arrow functions.
+    "react/function-component-definition": [
+      2,
+      { "namedComponents": "arrow-function", "unnamedComponents": "arrow-function" }
+    ],
+
+    // We can spread props as TS determines which props can be used within a component.
+    "react/jsx-props-no-spreading": 0,
+
+    // In many cases `undefined` is a valid value for a prop.
+    "react/require-default-props": 0,
+
+    /* simple-import-sort */
+
+    // Auto-fixable rules for sorting imports and exports
+    "simple-import-sort/imports": 2,
+    "simple-import-sort/exports": 2,
+
+    /* typescript-eslint */
+
+    // Promises that return void can be used in places that doesn't expect a promise.
+    "@typescript-eslint/no-misused-promises": [2, { "checksVoidReturn": false }],
+
+    /* unicorn */
+
+    // Custom name for used for all exceptions.
+    "unicorn/catch-error-name": [2, { "name": "exception" }],
+
+    // Functional patterns becomes robust when we are forced to create anonymous functions for data iteration.
+    "unicorn/no-array-callback-reference": 0,
+
+    // Many patterns in our codebase require using null instead of undefined.
+    "unicorn/no-null": 0,
+
+    // We se no reason to disallow transforming data using reduce.
+    "unicorn/no-array-reduce": 0,
+
+    // Some abbreviations we prefer to be written in the full form.
+    "unicorn/prevent-abbreviations": [
+      2,
+      {
+        "extendDefaultReplacements": false,
+        "checkFilenames": false,
+        "replacements": {
+          "conf": { "config": true },
+          "cur": { "current": true },
+          "curr": { "current": true },
+          "def": { "defer": true, "deferred": true, "define": true, "definition": true },
+          "dest": { "destination": true },
+          "dir": { "direction": true, "directory": true },
+          "dirs": { "directories": true },
+          "e": { "error": true, "event": true },
+          "el": { "element": true },
+          "elem": { "element": true },
+          "err": { "error": true },
+          "ev": { "event": true },
+          "evt": { "event": true },
+          "ex": { "exception": true },
+          "i": { "index": true },
+          "idx": { "index": true },
+          "j": { "index": true },
+          "len": { "length": true },
+          "mod": { "module": true },
+          "msg": { "message": true },
+          "opts": { "options": true },
+          "rel": { "related": true, "relationship": true, "relative": true },
+          "tbl": { "table": true },
+          "tit": { "title": true },
+          "val": { "value": true },
+          "ver": { "version": true }
+        }
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["*.js"],
+      "rules": {
+        // JS files are written in CommonJS.
+        "unicorn/prefer-module": 0
+      }
+    }
+  ]
 }
