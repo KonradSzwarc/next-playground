@@ -60,6 +60,9 @@
     // We see no need to prevent single named exports.
     "import/prefer-default-export": 0,
 
+    // Allow devDependencies in some files.
+    "import/no-extraneous-dependencies": [2, { "devDependencies": ["tailwind.config.js"] }],
+
     /* react */
 
     // Write all components as arrow functions.
@@ -77,7 +80,18 @@
     /* simple-import-sort */
 
     // Auto-fixable rules for sorting imports and exports
-    "simple-import-sort/imports": 2,
+    "simple-import-sort/imports": [
+      2,
+      {
+        "groups": [
+          ["^\\u0000"], // Side effect imports.
+          ["^node:"], // Node.js builtins.
+          ["^(react|next|@next)", "^@?\\w"], // Packages.
+          ["^"], // Absolute imports.
+          ["^\\."] // Relative imports.
+        ]
+      }
+    ],
     "simple-import-sort/exports": 2,
 
     /* typescript-eslint */
