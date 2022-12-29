@@ -1,4 +1,5 @@
 const colors = require('tailwindcss/colors');
+const defaultTheme = require('tailwindcss/defaultTheme');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -8,10 +9,15 @@ module.exports = {
       transparent: 'transparent',
       current: 'currentColor',
       white: '#ffffff',
-      primary: colors.indigo,
+      brand: colors.indigo,
       gray: colors.slate,
       danger: colors.red,
       success: colors.emerald,
+    },
+    extend: {
+      fontFamily: {
+        sans: ['var(--inter-font-family)', ...defaultTheme.fontFamily.sans],
+      },
     },
   },
   plugins: [],

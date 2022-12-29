@@ -10,7 +10,7 @@ const ButtonPage = () => (
     {buttonSizes.map((size) => (
       <div key={size} className="space-x-4">
         {buttonVariants.map((variant) => (
-          <Button key={`${size}-${variant}`} size={size} variant={variant}>
+          <Button key={`${String(size)}-${String(variant)}`} size={size} variant={variant}>
             Button
           </Button>
         ))}

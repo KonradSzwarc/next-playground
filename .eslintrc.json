@@ -74,6 +74,9 @@
     // We can spread props as TS determines which props can be used within a component.
     "react/jsx-props-no-spreading": 0,
 
+    // Allow properties related to styled JSX.
+    "react/no-unknown-property": [2, { "ignore": ["jsx", "global"] }],
+
     // In many cases `undefined` is a valid value for a prop.
     "react/require-default-props": 0,
 
