@@ -12,6 +12,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "generate:icons": "rimraf src/generated/icons && svgr src/assets/icons --no-dimensions && eslint src/generated/icons --ext .ts,.tsx --fix && prettier --write src/generated/icons",
     "lint": "concurrently \"pnpm:lint:*\" -c magenta,yellow,blue -n lint: --timings",
     "lint:eslint": "eslint . --ext .ts,.tsx,.js --fix --ignore-path .gitignore",
     "lint:prettier": "prettier --write . --ignore-path .gitignore",
@@ -29,6 +30,7 @@
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "13.1.1",
+    "@svgr/cli": "6.5.1",
     "@types/node": "18.11.18",
     "@types/react": "18.0.26",
     "@types/react-dom": "18.0.10",
@@ -55,6 +57,7 @@
     "lint-staged": "13.1.0",
     "postcss": "8.4.20",
     "prettier": "2.8.1",
+    "rimraf": "3.0.2",
     "tailwindcss": "3.2.4",
     "typescript": "4.9.4"
   }

@@ -4,7 +4,9 @@
   },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
+  "files.associations": {
+    "*.svg": "html"
+  },
   "files.eol": "\n",
-  "prettier.documentSelectors": ["**/*.svg"],
   "tailwindCSS.experimental.classRegex": [["defineVariants(?:\\.\\w*)?\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]]
 }

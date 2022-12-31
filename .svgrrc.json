@@ -1,0 +1,10 @@
+{
+  "outDir": "src/generated/icons",
+  "jsxRuntime": "automatic",
+  "ref": true,
+  "filenameCase": "kebab",
+  "typescript": true,
+  "replaceAttrValues": {
+    "#000": "currentColor"
+  }
+}
