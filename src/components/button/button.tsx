@@ -1,18 +1,19 @@
-import { ElementType, forwardRef, ReactElement } from 'react';
+import { ElementType, forwardRef, ReactElement, ReactNode } from 'react';
 
 import type { PolymorphicComponentPropWithRef, PolymorphicRef } from '../../types/polymorphic';
 import { mergeClasses } from '../../utils/styles';
 import { Icon, SvgIcon } from '../icon/icon';
 import { ButtonIconStylesProps, ButtonStylesProps, getButtonClasses, getButtonIconClasses } from './button.styles';
 
-interface ButtonIconProps {
+interface ButtonCustomProps {
   icon?: SvgIcon;
   iconPosition?: ButtonIconStylesProps['position'];
+  children: ReactNode;
 }
 
 export type ButtonProps<C extends ElementType> = PolymorphicComponentPropWithRef<
   C,
-  ButtonStylesProps & ButtonIconProps
+  ButtonStylesProps & ButtonCustomProps
 >;
 
 type ButtonComponent = <C extends ElementType = 'button'>(props: ButtonProps<C>) => ReactElement | null;
