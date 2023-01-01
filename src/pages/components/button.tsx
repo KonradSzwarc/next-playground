@@ -1,17 +1,13 @@
-import type { ElementType } from 'react';
-
-import { Button, ButtonProps } from '../../components/button/button';
+import { Button } from '../../components/button/button';
+import { BUTTON_SIZES, BUTTON_VARIANTS } from '../../components/components.constants';
 import { Plus } from '../../generated/icons';
-
-const buttonSizes: ButtonProps<ElementType>['size'][] = ['xs', 'sm', 'md', 'lg', 'xl'];
-const buttonVariants: ButtonProps<ElementType>['variant'][] = ['primary', 'secondary', 'tertiary', 'danger', 'success'];
 
 const ButtonPage = () => (
   <div className="p-8 space-y-16">
     <div className="space-y-6">
-      {buttonSizes.map((size) => (
-        <div key={size} className="space-x-4">
-          {buttonVariants.map((variant) => (
+      {BUTTON_SIZES.map((size) => (
+        <div key={size} className="flex space-x-4">
+          {BUTTON_VARIANTS.map((variant) => (
             <Button key={`${String(size)}-${String(variant)}`} size={size} variant={variant}>
               Button
             </Button>
@@ -20,9 +16,9 @@ const ButtonPage = () => (
       ))}
     </div>
     <div className="space-y-6">
-      {buttonSizes.map((size) => (
-        <div key={size} className="space-x-4">
-          {buttonVariants.map((variant) => (
+      {BUTTON_SIZES.map((size) => (
+        <div key={size} className="flex space-x-4">
+          {BUTTON_VARIANTS.map((variant) => (
             <Button key={`${String(size)}-${String(variant)}`} size={size} variant={variant} icon={Plus}>
               Button
             </Button>

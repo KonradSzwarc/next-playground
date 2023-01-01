@@ -1,8 +1,9 @@
 import { defineVariants, GetVariantProps } from '../../utils/styles';
+import { BUTTON_ICON_SIZE_STYLES, BUTTON_VARIANT_STYLES, FOCUS_CLASSES } from '../components.constants';
 
 export const getButtonClasses = defineVariants(
-  'inline-flex items-center font-medium',
-  'focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2',
+  'flex items-center font-medium',
+  FOCUS_CLASSES,
   'active:translate-y-px',
   {
     variants: {
@@ -13,13 +14,7 @@ export const getButtonClasses = defineVariants(
         lg: 'rounded-md h-12 px-6 text-lg',
         xl: 'rounded-lg h-14 px-7 text-xl',
       },
-      variant: {
-        primary: 'bg-brand-600 text-white shadow-sm hover:bg-brand-700',
-        secondary: 'border border-gray-300 text-gray-700 shadow-sm hover:bg-gray-100',
-        tertiary: 'text-gray-700 hover:bg-gray-100',
-        danger: 'bg-danger-600 text-white shadow-sm hover:bg-danger-700',
-        success: 'bg-success-600 text-white shadow-sm hover:bg-success-700',
-      },
+      variant: BUTTON_VARIANT_STYLES,
     },
   },
 );
@@ -28,7 +23,7 @@ export type ButtonStylesProps = GetVariantProps<typeof getButtonClasses>;
 
 export const getButtonIconClasses = defineVariants({
   variants: {
-    size: { xs: 'w-3 h-3', sm: 'w-3.5 h-3.5', md: 'w-4 h-4', lg: 'w-4.5 h-4.5', xl: 'w-5 h-5' },
+    size: BUTTON_ICON_SIZE_STYLES,
     position: { left: '', right: '' },
   },
   compoundVariants: [

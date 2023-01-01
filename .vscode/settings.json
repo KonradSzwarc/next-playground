@@ -8,5 +8,8 @@
     "*.svg": "html"
   },
   "files.eol": "\n",
-  "tailwindCSS.experimental.classRegex": [["defineVariants(?:\\.\\w*)?\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]]
+  "tailwindCSS.experimental.classRegex": [
+    ["defineVariants(?:\\.\\w*)?\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+    ["/\\* tw \\*/ ([^;]*);", "'([^']*)'"]
+  ]
 }
