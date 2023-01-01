@@ -1,4 +1,4 @@
-import { defineVariants, GetVariantProps } from '../../utils/styles';
+import { defineVariants, GetVariantProps } from '@/utils/styles';
 
 export const getTypographyClasses = defineVariants({
   variants: {

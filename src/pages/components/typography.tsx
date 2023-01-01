@@ -1,6 +1,6 @@
 import type { ElementType } from 'react';
 
-import { Typography, TypographyProps } from '../../components/typography/typography';
+import { Typography, TypographyProps } from '@/components/typography';
 
 const typographySizes: TypographyProps<ElementType>['size'][] = [
   'xs',

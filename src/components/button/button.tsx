@@ -1,8 +1,9 @@
 import { ElementType, forwardRef, ReactElement, ReactNode } from 'react';
 
-import type { PolymorphicComponentPropWithRef, PolymorphicRef } from '../../types/polymorphic';
-import { mergeClasses } from '../../utils/styles';
-import { Icon, SvgIcon } from '../icon/icon';
+import { Icon, SvgIcon } from '@/components/icon';
+import type { PolymorphicComponentPropWithRef, PolymorphicRef } from '@/types/polymorphic';
+import { mergeClasses } from '@/utils/styles';
+
 import { ButtonIconStylesProps, ButtonStylesProps, getButtonClasses, getButtonIconClasses } from './button.styles';
 
 interface ButtonCustomProps {

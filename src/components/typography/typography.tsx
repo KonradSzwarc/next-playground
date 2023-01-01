@@ -1,7 +1,8 @@
 import { ElementType, forwardRef, ReactElement } from 'react';
 
-import type { PolymorphicComponentPropWithRef, PolymorphicRef } from '../../types/polymorphic';
-import { mergeClasses } from '../../utils/styles';
+import type { PolymorphicComponentPropWithRef, PolymorphicRef } from '@/types/polymorphic';
+import { mergeClasses } from '@/utils/styles';
+
 import { getTypographyClasses, TypographyStylesProps } from './typography.styles';
 
 export type TypographyProps<C extends ElementType> = PolymorphicComponentPropWithRef<C, TypographyStylesProps>;

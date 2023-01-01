@@ -3,7 +3,8 @@ import { faker } from '@faker-js/faker';
 import { render, screen } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
-import { Plus } from '../../generated/icons';
+import { Plus } from '@/generated/icons';
+
 import { Button } from './button';
 
 describe('Button', () => {

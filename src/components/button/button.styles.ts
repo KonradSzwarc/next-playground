@@ -1,5 +1,5 @@
-import { defineVariants, GetVariantProps } from '../../utils/styles';
-import { BUTTON_ICON_SIZE_STYLES, BUTTON_VARIANT_STYLES, FOCUS_CLASSES } from '../components.constants';
+import { BUTTON_ICON_SIZE_STYLES, BUTTON_VARIANT_STYLES, FOCUS_CLASSES } from '@/components/constants';
+import { defineVariants, GetVariantProps } from '@/utils/styles';
 
 export const getButtonClasses = defineVariants(
   'flex items-center font-medium',

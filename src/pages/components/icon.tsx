@@ -1,5 +1,5 @@
-import { Icon } from '../../components/icon/icon';
-import { Edit, Plus, Trash } from '../../generated/icons';
+import { Icon } from '@/components/icon';
+import { Edit, Plus, Trash } from '@/generated/icons';
 
 const IconPage = () => (
   <div className="flex p-8 gap-8">

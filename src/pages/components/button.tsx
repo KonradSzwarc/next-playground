@@ -1,6 +1,6 @@
-import { Button } from '../../components/button/button';
-import { BUTTON_SIZES, BUTTON_VARIANTS } from '../../components/components.constants';
-import { Plus } from '../../generated/icons';
+import { Button } from '@/components/button';
+import { BUTTON_SIZES, BUTTON_VARIANTS } from '@/components/constants';
+import { Plus } from '@/generated/icons';
 
 const ButtonPage = () => (
   <div className="p-8 space-y-16">
