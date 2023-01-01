@@ -1,6 +1,8 @@
 import { forwardRef, ForwardRefExoticComponent, PropsWithoutRef, RefAttributes, SVGProps } from 'react';
 
-type IconType = ForwardRefExoticComponent<PropsWithoutRef<SVGProps<SVGSVGElement>> & RefAttributes<SVGSVGElement>>;
+export type IconType = ForwardRefExoticComponent<
+  PropsWithoutRef<SVGProps<SVGSVGElement>> & RefAttributes<SVGSVGElement>
+>;
 
 type CustomSvgProps = Omit<
   PropsWithoutRef<SVGProps<SVGSVGElement>>,
@@ -8,10 +10,9 @@ type CustomSvgProps = Omit<
 >;
 
 interface IconProps extends CustomSvgProps {
-  size: number;
   icon: IconType;
 }
 
-export const Icon = forwardRef<SVGSVGElement, IconProps>(({ icon: Component, size, ...props }, ref) => (
-  <Component ref={ref} width={size} height={size} {...props} />
+export const Icon = forwardRef<SVGSVGElement, IconProps>(({ icon: Component, ...props }, ref) => (
+  <Component ref={ref} {...props} />
 ));
