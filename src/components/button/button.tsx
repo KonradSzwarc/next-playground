@@ -2,11 +2,11 @@ import { ElementType, forwardRef, ReactElement } from 'react';
 
 import type { PolymorphicComponentPropWithRef, PolymorphicRef } from '../../types/polymorphic';
 import { mergeClasses } from '../../utils/styles';
-import { Icon, IconType } from '../icon/icon';
+import { Icon, SvgIcon } from '../icon/icon';
 import { ButtonIconStylesProps, ButtonStylesProps, getButtonClasses, getButtonIconClasses } from './button.styles';
 
 interface ButtonIconProps {
-  icon?: IconType;
+  icon?: SvgIcon;
   iconPosition?: ButtonIconStylesProps['position'];
 }
 
@@ -19,7 +19,16 @@ type ButtonComponent = <C extends ElementType = 'button'>(props: ButtonProps<C>)
 
 export const Button: ButtonComponent = forwardRef(
   <C extends ElementType = 'button'>(
-    { as, size, variant, icon, iconPosition = 'left', className, children, ...props }: ButtonProps<C>,
+    {
+      size = 'md',
+      variant = 'primary',
+      icon,
+      iconPosition = 'left',
+      as,
+      className,
+      children,
+      ...props
+    }: ButtonProps<C>,
     ref?: PolymorphicRef<C>,
   ) => {
     const Component = as ?? 'button';

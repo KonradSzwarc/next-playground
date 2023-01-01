@@ -21,7 +21,6 @@ export const getButtonClasses = defineVariants(
         success: 'bg-success-600 text-white shadow-sm hover:bg-success-700',
       },
     },
-    defaultVariants: { size: 'md', variant: 'primary' },
   },
 );
 

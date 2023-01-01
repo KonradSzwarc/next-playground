@@ -26,7 +26,6 @@ export const getTypographyClasses = defineVariants({
       secondary: 'text-gray-500',
     },
   },
-  defaultVariants: { size: 'md', weight: 'normal', color: 'primary' },
 });
 
 export type TypographyStylesProps = GetVariantProps<typeof getTypographyClasses>;

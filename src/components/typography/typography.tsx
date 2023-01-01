@@ -10,7 +10,7 @@ type TypographyComponent = <C extends ElementType = 'p'>(props: TypographyProps<
 
 export const Typography: TypographyComponent = forwardRef(
   <C extends ElementType = 'p'>(
-    { as, size, color, weight, className, children, ...props }: TypographyProps<C>,
+    { size = 'md', weight = 'normal', color = 'primary', as, className, children, ...props }: TypographyProps<C>,
     ref?: PolymorphicRef<C>,
   ) => {
     const Component = as ?? 'p';
