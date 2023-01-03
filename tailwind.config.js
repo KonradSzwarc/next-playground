@@ -1,5 +1,6 @@
 const colors = require('tailwindcss/colors');
 const defaultTheme = require('tailwindcss/defaultTheme');
+const formsPlugin = require('@tailwindcss/forms');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -21,7 +22,10 @@ module.exports = {
       spacing: {
         4.5: '1.125rem',
       },
+      aria: {
+        invalid: 'invalid="true"',
+      },
     },
   },
-  plugins: [],
+  plugins: [formsPlugin],
 };
