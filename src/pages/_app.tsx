@@ -1,19 +1,11 @@
-import '@/styles/globals.css';
-
-import { Inter } from '@next/font/google';
 import type { AppProps } from 'next/app';
 
-const inter = Inter({ subsets: ['latin'] });
+import { ThemeProvider } from '@/components/theme-provider';
 
 const App = ({ Component, pageProps }: AppProps) => (
-  <>
-    <style jsx global>{`
-      :root {
-        --inter-font-family: ${inter.style.fontFamily};
-      }
-    `}</style>
+  <ThemeProvider>
     <Component {...pageProps} />
-  </>
+  </ThemeProvider>
 );
 
 export default App;

@@ -7,9 +7,5 @@
   "files.associations": {
     "*.svg": "html"
   },
-  "files.eol": "\n",
-  "tailwindCSS.experimental.classRegex": [
-    ["defineVariants(?:\\.\\w*)?\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
-    ["/\\* tw \\*/ ([^;]*);", "'([^']*)'"]
-  ]
+  "files.eol": "\n"
 }
