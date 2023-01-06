@@ -6,10 +6,12 @@ specifiers:
   '@faker-js/faker': 7.6.0
   '@mantine/core': 5.10.0
   '@mantine/hooks': 5.10.0
+  '@mantine/labs': 5.10.0
   '@mantine/next': 5.10.0
   '@next/eslint-plugin-next': 13.1.1
   '@next/font': 13.1.1
   '@svgr/cli': 6.5.1
+  '@tabler/icons': 1.119.0
   '@testing-library/jest-dom': 5.16.5
   '@testing-library/react': 13.4.0
   '@types/jest': 29.2.5
@@ -60,8 +62,10 @@ dependencies:
   '@emotion/server': 11.10.0
   '@mantine/core': 5.10.0_lbfixegkxal6rwioqxubxet6s4
   '@mantine/hooks': 5.10.0_react@18.2.0
+  '@mantine/labs': 5.10.0_3m53ouna3laykmqkiimzgz4i2m
   '@mantine/next': 5.10.0_d5xj5jipthoiwqd5a5nbaex2p4
   '@next/font': 13.1.1
+  '@tabler/icons': 1.119.0_biqbaboplfbrettd7655fr4n2y
   next: 13.1.1_biqbaboplfbrettd7655fr4n2y
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
@@ -1069,6 +1073,21 @@ packages:
       react: 18.2.0
     dev: false
 
+  /@mantine/labs/5.10.0_3m53ouna3laykmqkiimzgz4i2m:
+    resolution:
+      { integrity: sha512-LZdygBDronvHYRbxb9zyZqK73fSNv+2KC5ZhHjaBvI/rRm/jqclePH+XVJGqg0+k859Hfy/Gur86jdjRrNZdIA== }
+    peerDependencies:
+      '@mantine/core': 5.10.0
+      '@mantine/hooks': 5.10.0
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+    dependencies:
+      '@mantine/core': 5.10.0_lbfixegkxal6rwioqxubxet6s4
+      '@mantine/hooks': 5.10.0_react@18.2.0
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
+
   /@mantine/next/5.10.0_d5xj5jipthoiwqd5a5nbaex2p4:
     resolution:
       { integrity: sha512-ImsY1JcA3h8ojPCVDGjKvTnLqpFEecPcgwYNTIUeYGP9FHB9NXhIDLS2aeeKPrgw2dNO8vtRY5aXTPqt2spLag== }
@@ -1640,6 +1659,22 @@ packages:
       { integrity: sha512-4C7nX/dvpzB7za4Ql9K81xK3HPxCpHMgwTZVyf+9JQ6VUbn9jjZVN7/Nkdz/Ugzs2CSjqnL/UPXroiVBVHUWUw== }
     dependencies:
       tslib: 2.4.1
+    dev: false
+
+  /@tabler/icons/1.119.0_biqbaboplfbrettd7655fr4n2y:
+    resolution:
+      { integrity: sha512-Fk3Qq4w2SXcTjc/n1cuL5bccPkylrOMo7cYpQIf/yw6zP76LQV9dtLcHQUjFiUnaYuswR645CnURIhlafyAh9g== }
+    peerDependencies:
+      react: ^16.x || 17.x || 18.x
+      react-dom: ^16.x || 17.x || 18.x
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
     dev: false
 
   /@testing-library/dom/8.19.1:

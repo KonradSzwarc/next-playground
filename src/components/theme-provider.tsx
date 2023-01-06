@@ -26,6 +26,11 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => (
         ],
       },
       primaryColor: 'brand',
+      globalStyles: ({ colors, colorScheme }) => ({
+        body: {
+          backgroundColor: colorScheme === 'dark' ? colors.dark[7] : colors.gray[0],
+        },
+      }),
     }}
   >
     {children}

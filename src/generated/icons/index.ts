@@ -1,3 +1,2 @@
-export { default as Edit } from './edit';
-export { default as Plus } from './plus';
-export { default as Trash } from './trash';
+export { default as Github } from './github';
+export { default as Google } from './google';
