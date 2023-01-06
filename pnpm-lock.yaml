@@ -4,6 +4,7 @@ specifiers:
   '@emotion/react': 11.10.5
   '@emotion/server': 11.10.0
   '@faker-js/faker': 7.6.0
+  '@hookform/resolvers': 2.9.10
   '@mantine/core': 5.10.0
   '@mantine/hooks': 5.10.0
   '@mantine/labs': 5.10.0
@@ -52,14 +53,17 @@ specifiers:
   prettier: 2.8.1
   react: 18.2.0
   react-dom: 18.2.0
+  react-hook-form: 7.41.5
   rimraf: 3.0.2
   ts-jest: 29.0.3
   ts-node: 10.9.1
   typescript: 4.9.4
+  zod: 3.20.2
 
 dependencies:
   '@emotion/react': 11.10.5_kzbn2opkn2327fwg5yzwzya5o4
   '@emotion/server': 11.10.0
+  '@hookform/resolvers': 2.9.10_react-hook-form@7.41.5
   '@mantine/core': 5.10.0_lbfixegkxal6rwioqxubxet6s4
   '@mantine/hooks': 5.10.0_react@18.2.0
   '@mantine/labs': 5.10.0_3m53ouna3laykmqkiimzgz4i2m
@@ -69,6 +73,8 @@ dependencies:
   next: 13.1.1_biqbaboplfbrettd7655fr4n2y
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
+  react-hook-form: 7.41.5_react@18.2.0
+  zod: 3.20.2
 
 devDependencies:
   '@faker-js/faker': 7.6.0
@@ -721,6 +727,15 @@ packages:
       '@floating-ui/dom': 1.1.0
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
+    dev: false
+
+  /@hookform/resolvers/2.9.10_react-hook-form@7.41.5:
+    resolution:
+      { integrity: sha512-JIL1DgJIlH9yuxcNGtyhsWX/PgNltz+5Gr6+8SX9fhXc/hPbEIk6wPI82nhgvp3uUb6ZfAM5mqg/x7KR7NAb+A== }
+    peerDependencies:
+      react-hook-form: ^7.0.0
+    dependencies:
+      react-hook-form: 7.41.5_react@18.2.0
     dev: false
 
   /@humanwhocodes/config-array/0.11.8:
@@ -6058,6 +6073,16 @@ packages:
       react: 18.2.0
       scheduler: 0.23.0
 
+  /react-hook-form/7.41.5_react@18.2.0:
+    resolution:
+      { integrity: sha512-DAKjSJ7X9f16oQrP3TW2/eD9N6HOgrmIahP4LOdFphEWVfGZ2LulFd6f6AQ/YS/0cx/5oc4j8a1PXxuaurWp/Q== }
+    engines: { node: '>=12.22.0' }
+    peerDependencies:
+      react: ^16.8.0 || ^17 || ^18
+    dependencies:
+      react: 18.2.0
+    dev: false
+
   /react-is/16.13.1:
     resolution:
       { integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ== }
@@ -7325,3 +7350,8 @@ packages:
       { integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q== }
     engines: { node: '>=10' }
     dev: true
+
+  /zod/3.20.2:
+    resolution:
+      { integrity: sha512-1MzNQdAvO+54H+EaK5YpyEy0T+Ejo/7YLHS93G3RnYWh5gaotGHwGeN/ZO687qEDU2y4CdStQYXVHIgrUl5UVQ== }
+    dev: false
