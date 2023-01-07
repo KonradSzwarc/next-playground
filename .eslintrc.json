@@ -68,7 +68,7 @@
     "import/prefer-default-export": 0,
 
     // Allow devDependencies in some files.
-    "import/no-extraneous-dependencies": [2, { "devDependencies": ["tailwind.config.js"] }],
+    "import/no-extraneous-dependencies": [2, { "devDependencies": ["tailwind.config.js", "knexfile.js"] }],
 
     /* react */
 
@@ -166,6 +166,13 @@
       "rules": {
         // JS files are written in CommonJS.
         "unicorn/prefer-module": 0
+      }
+    },
+    {
+      "files": ["**/migrations/*.ts"],
+      "rules": {
+        // Migration files have snake_case names.
+        "unicorn/filename-case": [2, { "case": "snakeCase" }]
       }
     },
     {
