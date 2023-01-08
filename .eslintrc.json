@@ -177,6 +177,13 @@
       }
     },
     {
+      "files": ["*.model.ts"],
+      "rules": {
+        // Models export type and related functions under the same name.
+        "@typescript-eslint/no-redeclare": 0
+      }
+    },
+    {
       "files": ["**/*.spec.ts?(x)", "jest.*.ts"],
       "env": { "jest": true },
       "extends": [

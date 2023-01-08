@@ -1,12 +1,15 @@
+import type { GetServerSideProps } from 'next';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { Button, Group } from '@mantine/core';
 
+import { getServerSideSession } from '@/server/auth';
+
 const IndexPage = () => {
-  const { data } = useSession();
+  const { data, status } = useSession();
 
   return (
     <Group mt={50} position="center">
-      {data?.user ? (
+      {status === 'authenticated' ? (
         <Button size="xl" onClick={() => signOut()}>
           Sign out {data.user.name}
         </Button>
@@ -18,5 +21,11 @@ const IndexPage = () => {
     </Group>
   );
 };
+
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => ({
+  props: {
+    session: await getServerSideSession(req, res),
+  },
+});
 
 export default IndexPage;
