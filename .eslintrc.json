@@ -30,6 +30,14 @@
     // Requires all functions to take at most 3 parameters.
     "max-params": [2, { "max": 3 }],
 
+    "no-restricted-imports": [
+      2,
+      {
+        "name": "@prisma/client",
+        "message": "To import entity types use `import { Entities } from '@/server/db'` instead."
+      }
+    ],
+
     // Disallow some keywords and function invocations.
     "no-restricted-syntax": [
       2,
