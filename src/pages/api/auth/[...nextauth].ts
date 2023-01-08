@@ -2,43 +2,48 @@ import { randomUUID } from 'node:crypto';
 
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
-import NextAuth, { type NextAuthOptions } from 'next-auth';
+import NextAuth, { NextAuthOptions } from 'next-auth';
 import { decode, encode } from 'next-auth/jwt';
 import CredentialProvider from 'next-auth/providers/credentials';
 import GitHubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 import { getCookie, setCookie } from 'cookies-next';
-import { get } from 'lodash';
+import { get, pick } from 'lodash';
+import ms from 'ms';
 
 import { prisma } from '@/server/db';
 
 const SESSION_COOKIE_NAME = 'next-auth.session-token';
-const CREDENTIALS_SESSION_MAX_AGE = 60 * 60 * 24 * 30;
 
-const generateSessionToken = () => randomUUID();
+const sessionConfig = {
+  strategy: 'database',
+  maxAge: ms('30d'),
+  updateAge: ms('24h'),
+} satisfies NextAuthOptions['session'];
 
-const fromDate = (time: number, date = Date.now()) => new Date(date + time * 1000);
-
-const isCredentialsSignIn = (req: NextApiRequest) =>
+const isCredentialsAuth = (req: NextApiRequest) =>
   Boolean(
     req.query.nextauth?.includes('callback') && req.query.nextauth.includes('credentials') && req.method === 'POST',
   );
 
-const requestWrapper = (req: NextApiRequest, res: NextApiResponse) => {
+const requestWrapper = (
+  req: NextApiRequest,
+  res: NextApiResponse,
+): [req: NextApiRequest, res: NextApiResponse, options: NextAuthOptions] => {
   const adapter = PrismaAdapter(prisma);
 
   const createCredentialsSession = async (userId: string) => {
-    const sessionToken = generateSessionToken();
-    const sessionMaxAge = CREDENTIALS_SESSION_MAX_AGE;
-    const expires = fromDate(sessionMaxAge);
+    const sessionToken = randomUUID();
+    const expires = new Date(Date.now() + sessionConfig.maxAge);
 
     await adapter.createSession({ userId, sessionToken, expires });
 
-    setCookie(SESSION_COOKIE_NAME, sessionToken, { expires, req, res });
+    setCookie(SESSION_COOKIE_NAME, sessionToken, { req, res, expires });
   };
 
   const options: NextAuthOptions = {
     adapter,
+    session: sessionConfig,
     providers: [
       GitHubProvider({
         clientId: String(process.env.GITHUB_CLIENT_ID),
@@ -61,45 +66,40 @@ const requestWrapper = (req: NextApiRequest, res: NextApiResponse) => {
 
           if (!user || user.password !== credentials?.password || !user.emailVerified) return null;
 
-          return user;
+          return pick(user, ['id', 'email', 'name', 'image']);
         },
       }),
     ],
     callbacks: {
       session: ({ session, user }) => (session.user ? { ...session, user: { ...session.user, id: user.id } } : session),
       signIn: async ({ user, account, profile }) => {
-        if (isCredentialsSignIn(req)) {
+        if (isCredentialsAuth(req)) {
           await createCredentialsSession(user.id);
-          return true;
         }
 
-        return Boolean(account?.provider === 'google' ? get(profile, 'email_verified') : account && profile);
+        return account?.provider === 'google' ? Boolean(get(profile, 'email_verified')) : true;
       },
     },
     jwt: {
-      encode: ({ token, secret, maxAge }) => {
-        if (isCredentialsSignIn(req)) {
+      encode: (params) => {
+        if (isCredentialsAuth(req)) {
           const cookie = getCookie(SESSION_COOKIE_NAME, { req, res });
           return typeof cookie === 'string' ? cookie : '';
         }
 
-        return encode({ token, secret, maxAge });
+        return encode(params);
       },
-      decode: ({ token, secret }) => {
-        if (isCredentialsSignIn(req)) return null;
+      decode: (params) => {
+        if (isCredentialsAuth(req)) return null;
 
-        return decode({ token, secret });
+        return decode(params);
       },
     },
   };
 
-  return { req, res, options };
+  return [req, res, options];
 };
 
-export const handler: NextApiHandler = (...params) => {
-  const { req, res, options } = requestWrapper(...params);
-
-  return NextAuth(req, res, options);
-};
+const handler: NextApiHandler = (...params) => NextAuth(...requestWrapper(...params));
 
 export default handler;
