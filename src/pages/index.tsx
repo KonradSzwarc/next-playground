@@ -1,13 +1,22 @@
-import { ActionIcon, Button, Group } from '@mantine/core';
-import { IconPlus } from '@tabler/icons';
+import { signIn, signOut, useSession } from 'next-auth/react';
+import { Button, Group } from '@mantine/core';
 
-const IndexPage = () => (
-  <Group mt={50} position="center">
-    <Button size="xl">Welcome to Mantine!</Button>
-    <ActionIcon size="xl" variant="filled" color="brand">
-      <IconPlus size={24} />
-    </ActionIcon>
-  </Group>
-);
+const IndexPage = () => {
+  const { data } = useSession();
+
+  return (
+    <Group mt={50} position="center">
+      {data?.user ? (
+        <Button size="xl" onClick={() => signOut()}>
+          Sign out {data.user.name}
+        </Button>
+      ) : (
+        <Button size="xl" onClick={() => signIn()}>
+          Sign in
+        </Button>
+      )}
+    </Group>
+  );
+};
 
 export default IndexPage;

@@ -34,7 +34,7 @@
       2,
       {
         "name": "@prisma/client",
-        "message": "To import entity types use `import { Entities } from '@/server/db'` instead."
+        "message": "\nDon't import directly from @prisma/client. \n - To import entity types use `import { Entities } from '@/server/db'` instead. \n - To import client instance use `import { prisma } from '@/server/db'`"
       }
     ],
 
