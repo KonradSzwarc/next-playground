@@ -32,6 +32,11 @@
     "@next/font": "13.1.1",
     "@prisma/client": "4.8.1",
     "@tabler/icons": "1.119.0",
+    "@tanstack/react-query": "4.22.0",
+    "@trpc/client": "10.8.1",
+    "@trpc/next": "10.8.1",
+    "@trpc/react-query": "10.8.1",
+    "@trpc/server": "10.8.1",
     "cookies-next": "2.1.1",
     "date-fns": "2.29.3",
     "lodash": "4.17.21",
@@ -41,6 +46,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "7.41.5",
+    "superjson": "1.12.1",
     "zod": "3.20.2"
   },
   "devDependencies": {

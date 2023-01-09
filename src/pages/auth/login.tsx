@@ -20,7 +20,7 @@ import { z } from 'zod';
 
 import { Github, Google } from '@/generated/icons';
 import { useForm } from '@/hooks/use-form';
-import { getServerSideSession } from '@/server/auth';
+import { getServerSideSession } from '@/services/auth';
 import { validators } from '@/shared/validators';
 
 const querySchema = z.object({

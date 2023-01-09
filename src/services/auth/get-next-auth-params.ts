@@ -12,7 +12,7 @@ import { add } from 'date-fns';
 import { get } from 'lodash';
 
 import { User } from '@/models';
-import { prisma } from '@/server/db';
+import { prisma } from '@/services/db';
 import { toSeconds } from '@/utils/number';
 
 type SsrRequest = GetServerSidePropsContext['req'];

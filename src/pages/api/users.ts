@@ -1,6 +1,6 @@
 import type { NextApiHandler } from 'next';
 
-import { Entities, prisma } from '@/server/db';
+import { Entities, prisma } from '@/services/db';
 
 const handler: NextApiHandler<Entities.User[]> = async (_req, res) => {
   const users = await prisma.user.findMany();
