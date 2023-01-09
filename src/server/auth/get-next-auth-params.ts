@@ -82,6 +82,9 @@ export function getNextAuthParams(req: Request, res: Response): SsrResult | Next
   const options: NextAuthOptions = {
     adapter,
     session: sessionConfig,
+    pages: {
+      signIn: '/auth/login',
+    },
     providers: [
       GitHubProvider({
         clientId: String(process.env.GITHUB_CLIENT_ID),

@@ -1,7 +1,11 @@
+import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { getProviders, signIn } from 'next-auth/react';
 import {
   Anchor,
   Button,
+  ButtonProps,
   Divider,
   Flex,
   Group,
@@ -12,27 +16,46 @@ import {
   TextInput,
   Title,
 } from '@mantine/core';
-import { object } from 'zod';
+import { z } from 'zod';
 
 import { Github, Google } from '@/generated/icons';
 import { useForm } from '@/hooks/use-form';
+import { getServerSideSession } from '@/server/auth';
 import { validators } from '@/shared/validators';
 
-const loginFormSchema = object({
+const querySchema = z.object({
+  callbackUrl: z.string().url().optional(),
+});
+
+const useQuery = () => {
+  const { query } = useRouter();
+  const parsedQuery = querySchema.safeParse(query);
+
+  return parsedQuery.success ? parsedQuery.data : {};
+};
+
+const loginFormSchema = z.object({
   email: validators.email,
   password: validators.password,
 });
 
-const LoginPage = () => {
+const LoginPage = ({ providerIds }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ schema: loginFormSchema });
+  const { callbackUrl } = useQuery();
 
-  const onSubmit = handleSubmit((values) => {
-    console.log(values);
+  const onSubmit = handleSubmit(async (values) => {
+    await signIn('credentials', { ...values, callbackUrl });
   });
+
+  const oAuthButtonProps = { variant: 'default', color: 'gray', radius: 'xl' } satisfies ButtonProps;
+  const oAuthButtons = [
+    { providerId: providerIds.google, Icon: Google, children: 'Google', ...oAuthButtonProps },
+    { providerId: providerIds.github, Icon: Github, children: 'Github', ...oAuthButtonProps },
+  ];
 
   return (
     <Flex direction="column" align="center" px={16} py={64}>
@@ -48,12 +71,17 @@ const LoginPage = () => {
 
       <Paper onSubmit={onSubmit} component="form" radius="md" p="xl" withBorder w="min(420px, 100%)">
         <Group grow mb="md">
-          <Button leftIcon={<Google width={16} height={16} />} variant="default" color="gray" radius="xl">
-            Google
-          </Button>
-          <Button leftIcon={<Github width={16} height={16} />} variant="default" color="gray" radius="xl">
-            Github
-          </Button>
+          {oAuthButtons.map(
+            ({ providerId, Icon, ...props }) =>
+              providerId && (
+                <Button
+                  key={providerId}
+                  onClick={() => signIn(providerId, { callbackUrl })}
+                  leftIcon={<Icon width={16} height={16} />}
+                  {...props}
+                />
+              ),
+          )}
         </Group>
 
         <Divider label="Or continue with email" labelPosition="center" my="lg" />
@@ -87,5 +115,13 @@ const LoginPage = () => {
     </Flex>
   );
 };
+
+export const getServerSideProps = (async ({ req, res }) => {
+  const [providers, session] = await Promise.all([getProviders(), getServerSideSession(req, res)]);
+
+  return session
+    ? { redirect: { destination: '/', permanent: false } }
+    : { props: { providerIds: { github: providers?.github.id, google: providers?.google.id } } };
+}) satisfies GetServerSideProps;
 
 export default LoginPage;
