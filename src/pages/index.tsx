@@ -2,7 +2,7 @@ import type { GetServerSideProps } from 'next';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { Button, Group, Stack, Text } from '@mantine/core';
 
-import { getServerSideSession } from '@/features/next-auth';
+import { getServerSideSession } from '@/features/next-auth/server';
 import { trpc } from '@/features/trpc/client';
 
 const IndexPage = () => {

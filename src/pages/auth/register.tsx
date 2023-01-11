@@ -1,5 +1,18 @@
-import { RegisterForm } from '@/modules/auth';
+import { useRouter } from 'next/router';
 
-const RegisterPage = () => <RegisterForm onSubmit={console.log} />;
+import { trpc } from '@/features/trpc/client';
+import { RegisterForm, RegisterFormProps } from '@/modules/auth';
+
+const RegisterPage = () => {
+  const router = useRouter();
+  const registerMutation = trpc.auth.register.useMutation();
+
+  const handleSubmit: RegisterFormProps['onSubmit'] = async (values) => {
+    await registerMutation.mutateAsync(values);
+    await router.push('/auth/confirm-email');
+  };
+
+  return <RegisterForm onSubmit={handleSubmit} />;
+};
 
 export default RegisterPage;

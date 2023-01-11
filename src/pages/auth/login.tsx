@@ -3,7 +3,8 @@ import { useRouter } from 'next/router';
 import { z } from 'zod';
 
 import { IconGithub, IconGoogle } from '@/components/icons';
-import { getProviders, getServerSideSession, signIn } from '@/features/next-auth';
+import { getProviders, signIn } from '@/features/next-auth';
+import { getServerSideSession } from '@/features/next-auth/server';
 import { LoginForm, LoginFormProps } from '@/modules/auth';
 
 const querySchema = z.object({

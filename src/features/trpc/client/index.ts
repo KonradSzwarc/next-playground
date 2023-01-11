@@ -1,1 +1,1 @@
-export * from './trpc';
+export { trpc } from './trpc';

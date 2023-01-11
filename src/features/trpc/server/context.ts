@@ -1,7 +1,7 @@
 import type { Session } from 'next-auth';
 import type { CreateNextContextOptions } from '@trpc/server/adapters/next';
 
-import { getServerSideSession } from '@/features/next-auth';
+import { getServerSideSession } from '@/features/next-auth/server';
 import { prisma } from '@/features/prisma';
 
 interface CreateContextOptions {
