@@ -13,7 +13,7 @@
     "build": "next build",
     "start": "next start",
     "test": "jest",
-    "generate:icons": "rimraf src/generated/icons && svgr src/assets/icons --no-dimensions && eslint src/generated/icons --ext .ts,.tsx --fix && prettier --write src/generated/icons",
+    "generate:icons": "rimraf src/components/icons/generated && svgr src/components/icons/svg --no-dimensions && eslint src/components/icons/generated --ext .ts,.tsx --fix && prettier --write src/components/icons/generated",
     "lint": "concurrently \"pnpm:lint:*\" -c magenta,yellow,blue -n lint: --timings",
     "lint:eslint": "eslint . --ext .ts,.tsx,.js --fix --ignore-path .gitignore",
     "lint:prettier": "prettier --write . --ignore-path .gitignore",

@@ -11,9 +11,10 @@ import { getCookie, setCookie } from 'cookies-next';
 import { add } from 'date-fns';
 import { get } from 'lodash';
 
-import { User } from '@/models';
-import { prisma } from '@/services/db';
-import { toSeconds } from '@/utils/number';
+import { prisma } from '@/features/prisma';
+
+import { sessionUserSchema } from './models';
+import { getSeconds } from './utils';
 
 type SsrRequest = GetServerSidePropsContext['req'];
 type SsrResponse = GetServerSidePropsContext['res'];
@@ -33,8 +34,8 @@ const sessionCookie = 'next-auth.session-token';
 
 const sessionConfig = {
   strategy: 'database',
-  maxAge: toSeconds('30d'),
-  updateAge: toSeconds('1d'),
+  maxAge: getSeconds('30d'),
+  updateAge: getSeconds('1d'),
 } satisfies NextAuthOptions['session'];
 
 const isApiRequest = (req: Request): req is NextApiRequest => 'query' in req || 'body' in req;
@@ -53,7 +54,7 @@ const getUserForCredentials = async ({ email = '', password = '' }: Credentials 
 
   if (!user || user.password !== password || !user.emailVerified) return null;
 
-  return User.from(user);
+  return sessionUserSchema.parse(user);
 };
 
 export function getNextAuthParams(req: NextApiRequest, res: NextApiResponse): NextApiResult;
@@ -106,7 +107,7 @@ export function getNextAuthParams(req: Request, res: Response): SsrResult | Next
       }),
     ],
     callbacks: {
-      session: ({ session, user }) => ({ ...session, user: User.from(user) }),
+      session: ({ session, user }) => ({ ...session, user: sessionUserSchema.parse(user) }),
       signIn: ({ user, account, profile }) =>
         authTypes({
           credentials: () => createCredentialsSession(user.id).then(() => true),

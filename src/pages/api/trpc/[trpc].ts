@@ -1,3 +1,3 @@
-import { createTrpcApiHandler } from '@/services/trpc/server';
+import { createTrpcApiHandler } from '@/features/trpc/server';
 
 export default createTrpcApiHandler();

@@ -2,8 +2,8 @@ import type { AppProps } from 'next/app';
 import type { Session } from 'next-auth';
 import { SessionProvider } from 'next-auth/react';
 
-import { ThemeProvider } from '@/components/theme-provider';
-import { trpc } from '@/services/trpc/client';
+import { trpc } from '@/features/trpc/client';
+import { ThemeProvider } from '@/features/ui';
 
 interface CustomProps {
   session: Session | null;
