@@ -2,6 +2,7 @@ import { createHash } from 'node:crypto';
 
 import { hash } from 'bcrypt';
 
+import { sendEmail } from '@/features/mailing/server';
 import { createRouter, publicProcedure } from '@/features/trpc/server';
 import { Email, urlSchema } from '@/models';
 
@@ -24,6 +25,16 @@ export const authRouter = createRouter({
         password: hashedPassword,
         image,
       },
+    });
+
+    await sendEmail({
+      to: {
+        name: input.name,
+        address: input.email,
+      },
+      subject: 'Welcome to Next Playground',
+      template: 'ConfirmEmail',
+      data: { code: '123456' },
     });
   }),
 });

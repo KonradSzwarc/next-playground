@@ -14,5 +14,13 @@ services:
     volumes:
       - 'next-playground-postgres-data:/var/lib/postgresql/data'
 
+  mailcatcher:
+    container_name: 'next-playground-mailcatcher'
+    image: 'sj26/mailcatcher'
+    restart: 'always'
+    ports:
+      - '1025:1025'
+      - '1080:1080'
+
 volumes:
   next-playground-postgres-data:
