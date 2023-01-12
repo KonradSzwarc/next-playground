@@ -9,7 +9,7 @@ const RegisterPage = () => {
 
   const handleSubmit: RegisterFormProps['onSubmit'] = async (values) => {
     await registerMutation.mutateAsync(values);
-    await router.push('/auth/confirm-email');
+    await router.push({ pathname: '/auth/confirm-email', query: { email: values.email } });
   };
 
   return <RegisterForm onSubmit={handleSubmit} />;

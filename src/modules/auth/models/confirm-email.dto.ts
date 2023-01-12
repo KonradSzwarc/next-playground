@@ -1,9 +1,12 @@
 import { z } from 'zod';
 
-export const CONFIRM_EMAIL_CODE_LENGTH = 6;
+import { emailSchema } from '@/models';
+
+import { emailConfirmationCodeSchema } from './email-confirmation-code.type';
 
 export const confirmEmailSchema = z.object({
-  code: z.string().length(CONFIRM_EMAIL_CODE_LENGTH),
+  code: emailConfirmationCodeSchema,
+  email: emailSchema,
 });
 
 export type ConfirmEmailDto = z.infer<typeof confirmEmailSchema>;

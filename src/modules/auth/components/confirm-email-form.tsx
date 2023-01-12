@@ -1,22 +1,19 @@
 import { Controller, SubmitHandler } from 'react-hook-form';
 import { Button, Flex, Input, Paper, Stack, Text, Title } from '@mantine/core';
 import { PinInput } from '@mantine/labs';
-import { object, string, z } from 'zod';
 
 import { useForm } from '@/features/forms';
+import type { Email } from '@/models';
+
+import { ConfirmEmailDto, confirmEmailSchema, EMAIL_CONFIRMATION_CODE_LENGTH } from '../models';
 
 export interface ConfirmEmailFormProps {
-  onSubmit: SubmitHandler<z.infer<typeof confirmEmailFormSchema>>;
+  onSubmit: SubmitHandler<ConfirmEmailDto>;
+  email: Email;
 }
 
-const CODE_LENGTH = 6;
-
-const confirmEmailFormSchema = object({
-  code: string().length(CODE_LENGTH),
-});
-
-export const ConfirmEmailForm = ({ onSubmit }: ConfirmEmailFormProps) => {
-  const { control, handleSubmit } = useForm({ schema: confirmEmailFormSchema });
+export const ConfirmEmailForm = ({ onSubmit, email }: ConfirmEmailFormProps) => {
+  const { control, handleSubmit } = useForm({ schema: confirmEmailSchema, defaultValues: { email } });
 
   return (
     <Flex direction="column" align="center" px={16} py={64}>
@@ -40,7 +37,7 @@ export const ConfirmEmailForm = ({ onSubmit }: ConfirmEmailFormProps) => {
                 autoFocus
                 size="xl"
                 type="number"
-                length={CODE_LENGTH}
+                length={EMAIL_CONFIRMATION_CODE_LENGTH}
                 invalid={Boolean(fieldState.error?.message)}
               />
             </Input.Wrapper>

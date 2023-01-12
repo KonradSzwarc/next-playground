@@ -7,6 +7,7 @@ import { decode, encode } from 'next-auth/jwt';
 import CredentialProvider from 'next-auth/providers/credentials';
 import GitHubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
+import { compare } from 'bcrypt';
 import { getCookie, setCookie } from 'cookies-next';
 import { add } from 'date-fns';
 import { get } from 'lodash';
@@ -52,7 +53,11 @@ const isCredentialsAuth = (req: Request) =>
 const getUserForCredentials = async ({ email = '', password = '' }: Credentials = {}) => {
   const user = await prisma.user.findUnique({ where: { email } });
 
-  if (!user || user.password !== password || !user.emailVerified) return null;
+  if (!user?.emailVerified) return null;
+
+  const arePasswordsEqual = user.password && compare(password, user.password);
+
+  if (!arePasswordsEqual) return null;
 
   return sessionUserSchema.parse(user);
 };
