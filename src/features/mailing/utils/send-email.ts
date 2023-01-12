@@ -2,7 +2,7 @@ import type { ComponentProps } from 'react';
 import { render } from '@faire/mjml-react/utils/render';
 import nodemailer, { SendMailOptions } from 'nodemailer';
 
-import * as emails from './emails';
+import * as emails from '../emails';
 
 interface SendEmailProps<TemplateName extends keyof typeof emails> {
   from?: SendMailOptions['from'];
