@@ -1,19 +1,20 @@
 import { Controller, SubmitHandler } from 'react-hook-form';
 import { Button, Flex, Input, Paper, Stack, Text, Title } from '@mantine/core';
 import { PinInput } from '@mantine/labs';
+import type { z } from 'zod';
 
 import { useForm } from '@/features/forms';
-import type { Email } from '@/models';
 
-import { ConfirmEmailDto, confirmEmailSchema, EMAIL_CONFIRMATION_CODE_LENGTH } from '../models';
+import { confirmEmailSchema, EMAIL_CONFIRMATION_CODE_LENGTH } from '../models';
+
+const confirmEmailFormSchema = confirmEmailSchema.pick({ code: true });
 
 export interface ConfirmEmailFormProps {
-  onSubmit: SubmitHandler<ConfirmEmailDto>;
-  email: Email;
+  onSubmit: SubmitHandler<z.infer<typeof confirmEmailFormSchema>>;
 }
 
-export const ConfirmEmailForm = ({ onSubmit, email }: ConfirmEmailFormProps) => {
-  const { control, handleSubmit } = useForm({ schema: confirmEmailSchema, defaultValues: { email } });
+export const ConfirmEmailForm = ({ onSubmit }: ConfirmEmailFormProps) => {
+  const { control, handleSubmit } = useForm({ schema: confirmEmailFormSchema });
 
   return (
     <Flex direction="column" align="center" px={16} py={64}>

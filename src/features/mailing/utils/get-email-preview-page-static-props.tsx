@@ -1,4 +1,4 @@
-import { ComponentProps, createElement } from 'react';
+import { ComponentProps, createElement, FC } from 'react';
 import { render } from '@faire/mjml-react/utils/render';
 
 import * as emails from '../emails';
@@ -13,7 +13,8 @@ export const getEmailPreviewPageStaticProps =
       return { notFound: true };
     }
 
-    const { html } = render(createElement(emails[template], data));
+    const component = emails[template] as FC<any>;
+    const { html } = render(createElement(component, data));
 
     return { props: { html } };
   };

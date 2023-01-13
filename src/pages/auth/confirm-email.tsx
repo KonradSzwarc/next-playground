@@ -10,30 +10,30 @@ const querySchema = z.object({
   email: emailSchema,
 });
 
-const useQuery = () => {
-  const router = useRouter();
-  const parsedQuery = querySchema.safeParse(router.query);
-
-  return { email: parsedQuery.success ? parsedQuery.data.email : undefined };
-};
-
 const ConfirmEmailPage = () => {
-  const { email } = useQuery();
   const router = useRouter();
   const confirmEmailMutation = trpc.auth.confirmEmail.useMutation();
 
-  useAsync(async () => {
-    if (!email) await router.push('/auth/login');
-  }, [email]);
+  const query = querySchema.safeParse(router.query);
+  const shouldRedirect = router.isReady && !query.success;
 
-  if (!email) return null;
+  useAsync(async () => {
+    if (shouldRedirect) await router.push('/auth/login');
+  }, [shouldRedirect]);
+
+  if (shouldRedirect) return null;
 
   const handleSubmit: ConfirmEmailFormProps['onSubmit'] = async (values) => {
-    await confirmEmailMutation.mutateAsync(values);
-    await router.push('/auth/login');
+    if (query.success) {
+      await confirmEmailMutation.mutateAsync({
+        code: values.code,
+        email: query.data.email,
+      });
+      await router.push('/auth/login');
+    }
   };
 
-  return <ConfirmEmailForm email={email} onSubmit={handleSubmit} />;
+  return <ConfirmEmailForm onSubmit={handleSubmit} />;
 };
 
 export default ConfirmEmailPage;

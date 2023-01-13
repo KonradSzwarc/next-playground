@@ -4,7 +4,6 @@ import { EmailLayout, EmailLayoutProps } from '../components';
 
 interface ConfirmEmailProps extends EmailLayoutProps {
   code: string;
-  subject: string;
 }
 
 export const ConfirmEmail = ({ code, subject }: ConfirmEmailProps) => (

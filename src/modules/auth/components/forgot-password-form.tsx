@@ -15,7 +15,8 @@ export const ForgotPasswordForm = ({ onSubmit }: ForgotPasswordFormProps) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    watch,
+    formState: { errors, isSubmitSuccessful },
   } = useForm({ schema: forgotPasswordSchema });
 
   return (
@@ -28,23 +29,33 @@ export const ForgotPasswordForm = ({ onSubmit }: ForgotPasswordFormProps) => {
       </Stack>
 
       <Paper onSubmit={handleSubmit(onSubmit)} component="form" radius="md" p="xl" withBorder w="min(420px, 100%)">
-        <TextInput
-          {...register('email')}
-          error={errors.email?.message}
-          withAsterisk
-          label="Email"
-          placeholder="Your email address"
-        />
+        {isSubmitSuccessful ? (
+          <Text align="center">
+            <Text pb={4}>Link to reset password has been sent to</Text>
+            <Text weight="bold">{watch('email')}</Text>
+            <Text pt={16}>You can now close this site</Text>
+          </Text>
+        ) : (
+          <>
+            <TextInput
+              {...register('email')}
+              error={errors.email?.message}
+              withAsterisk
+              label="Email"
+              placeholder="Your email address"
+            />
 
-        <Group position="apart" mt={32}>
-          <Anchor component={Link} href="/auth/login" color="dimmed" size="sm">
-            <Group spacing={4}>
-              <IconArrowLeft size={16} />
-              Back to login page
+            <Group position="apart" mt={32}>
+              <Anchor component={Link} href="/auth/login" color="dimmed" size="sm">
+                <Group spacing={4}>
+                  <IconArrowLeft size={16} />
+                  Back to login page
+                </Group>
+              </Anchor>
+              <Button type="submit">Send password reset link</Button>
             </Group>
-          </Anchor>
-          <Button type="submit">Send password reset link</Button>
-        </Group>
+          </>
+        )}
       </Paper>
     </Flex>
   );

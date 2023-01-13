@@ -2,13 +2,24 @@ import Link from 'next/link';
 import type { SubmitHandler } from 'react-hook-form';
 import { Anchor, Button, Flex, Group, Paper, PasswordInput, Stack, Text, Title } from '@mantine/core';
 import { IconArrowLeft } from '@tabler/icons';
+import { z } from 'zod';
 
 import { useForm } from '@/features/forms';
 
-import { ResetPasswordDto, resetPasswordSchema } from '../models';
+import { passwordSchema } from '../models';
+
+const resetPasswordFormSchema = z
+  .object({
+    password: passwordSchema,
+    confirmPassword: passwordSchema,
+  })
+  .refine(({ password, confirmPassword }) => password === confirmPassword, {
+    message: "Passwords don't match",
+    path: ['confirmPassword'],
+  });
 
 export interface ResetPasswordFormProps {
-  onSubmit: SubmitHandler<ResetPasswordDto>;
+  onSubmit: SubmitHandler<z.infer<typeof resetPasswordFormSchema>>;
 }
 
 export const ResetPasswordForm = ({ onSubmit }: ResetPasswordFormProps) => {
@@ -16,7 +27,7 @@ export const ResetPasswordForm = ({ onSubmit }: ResetPasswordFormProps) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ schema: resetPasswordSchema });
+  } = useForm({ schema: resetPasswordFormSchema });
 
   return (
     <Flex direction="column" align="center" px={16} py={64}>

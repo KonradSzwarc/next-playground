@@ -1,4 +1,4 @@
-import type { ComponentProps } from 'react';
+import type { ComponentProps, FC, ReactElement } from 'react';
 import { render } from '@faire/mjml-react/utils/render';
 import nodemailer, { SendMailOptions } from 'nodemailer';
 
@@ -26,7 +26,8 @@ export const sendEmail = async <TemplateName extends keyof typeof emails>({
     auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASSWORD },
   });
 
-  const { html, errors } = render(emails[template]({ ...data, subject }), {
+  const component = emails[template] as (props: ComponentProps<FC>) => ReactElement;
+  const { html, errors } = render(component({ ...data, subject }), {
     validationLevel: 'strict',
     keepComments: 'false',
   });

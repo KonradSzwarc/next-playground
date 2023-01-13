@@ -1,15 +1,13 @@
 import { z } from 'zod';
 
+import { emailSchema } from '@/models';
+
 import { passwordSchema } from './password.type';
 
-export const resetPasswordSchema = z
-  .object({
-    password: passwordSchema,
-    confirmPassword: passwordSchema,
-  })
-  .refine(({ password, confirmPassword }) => password === confirmPassword, {
-    message: "Passwords don't match",
-    path: ['confirmPassword'],
-  });
+export const resetPasswordSchema = z.object({
+  password: passwordSchema,
+  email: emailSchema,
+  token: z.string(),
+});
 
 export type ResetPasswordDto = z.infer<typeof resetPasswordSchema>;
