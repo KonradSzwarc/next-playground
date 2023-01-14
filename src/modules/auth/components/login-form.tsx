@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import type { ComponentPropsWithRef, ComponentType } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import {
   Anchor,
@@ -20,17 +19,11 @@ import { useForm } from '@/features/forms';
 import { emailSchema } from '@/models';
 
 import { passwordSchema } from '../models';
-
-interface OAuthProvider {
-  id: string;
-  name: string;
-  icon: ComponentType<ComponentPropsWithRef<'svg'>>;
-  onClick: () => void;
-}
+import { OAuthProviders, OAuthProviderUiData } from './oauth-providers';
 
 export interface LoginFormProps {
   onSubmit: SubmitHandler<z.infer<typeof loginFormSchema>>;
-  oAuthProviders: OAuthProvider[];
+  oAuthProviders: OAuthProviderUiData[];
 }
 
 const loginFormSchema = z.object({
@@ -58,20 +51,7 @@ export const LoginForm = ({ onSubmit, oAuthProviders }: LoginFormProps) => {
       </Stack>
 
       <Paper onSubmit={handleSubmit(onSubmit)} component="form" radius="md" p="xl" withBorder w="min(420px, 100%)">
-        <Group grow mb="md">
-          {oAuthProviders.map(({ id, name, icon: Icon, onClick }) => (
-            <Button
-              key={id}
-              onClick={onClick}
-              leftIcon={<Icon width={16} height={16} />}
-              variant="default"
-              color="gray"
-              radius="xl"
-            >
-              {name}
-            </Button>
-          ))}
-        </Group>
+        <OAuthProviders providers={oAuthProviders} mb="md" />
 
         <Divider label="Or continue with email" labelPosition="center" my="lg" />
 

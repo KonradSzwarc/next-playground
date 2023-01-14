@@ -1,30 +1,18 @@
 import Link from 'next/link';
 import type { SubmitHandler } from 'react-hook-form';
-import {
-  Anchor,
-  Button,
-  Divider,
-  Flex,
-  Group,
-  Paper,
-  PasswordInput,
-  Stack,
-  Text,
-  TextInput,
-  Title,
-} from '@mantine/core';
+import { Anchor, Button, Divider, Flex, Paper, PasswordInput, Stack, Text, TextInput, Title } from '@mantine/core';
 
-import IconGithub from '@/assets/icons/github.svg?component';
-import IconGoogle from '@/assets/icons/google.svg?component';
 import { useForm } from '@/features/forms';
 
 import { RegisterDto, registerSchema } from '../models';
+import { OAuthProviders, OAuthProviderUiData } from './oauth-providers';
 
 export interface RegisterFormProps {
   onSubmit: SubmitHandler<RegisterDto>;
+  oAuthProviders: OAuthProviderUiData[];
 }
 
-export const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
+export const RegisterForm = ({ onSubmit, oAuthProviders }: RegisterFormProps) => {
   const {
     register,
     handleSubmit,
@@ -44,14 +32,7 @@ export const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
       </Stack>
 
       <Paper onSubmit={handleSubmit(onSubmit)} component="form" radius="md" p="xl" withBorder w="min(420px, 100%)">
-        <Group grow mb="md">
-          <Button leftIcon={<IconGoogle width={16} height={16} />} variant="default" color="gray" radius="xl">
-            Google
-          </Button>
-          <Button leftIcon={<IconGithub width={16} height={16} />} variant="default" color="gray" radius="xl">
-            Github
-          </Button>
-        </Group>
+        <OAuthProviders providers={oAuthProviders} mb="md" />
 
         <Divider label="Or continue with email" labelPosition="center" my="lg" />
 
