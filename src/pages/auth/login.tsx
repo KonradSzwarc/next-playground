@@ -2,7 +2,8 @@ import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { useRouter } from 'next/router';
 import { z } from 'zod';
 
-import { IconGithub, IconGoogle } from '@/components/icons';
+import IconGithub from '@/assets/icons/github.svg?component';
+import IconGoogle from '@/assets/icons/google.svg?component';
 import { getProviders, signIn } from '@/features/next-auth';
 import { getServerSideSession } from '@/features/next-auth/server';
 import { urlSchema } from '@/models';

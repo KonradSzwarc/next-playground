@@ -111,6 +111,7 @@
       }
     ],
     "simple-import-sort/exports": 2,
+    "import/order": 0,
 
     /* typescript-eslint */
 
@@ -199,5 +200,5 @@
       }
     }
   ],
-  "ignorePatterns": ["svgr.config.js"]
+  "ignorePatterns": ["next.config.js"]
 }

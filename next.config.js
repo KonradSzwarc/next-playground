@@ -1,12 +1,6 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  reactStrictMode: true,
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-};
+require('ts-node').register({
+  transpileOnly: true,
+  compilerOptions: { module: 'CommonJS', target: 'ES2021' },
+});
 
-module.exports = nextConfig;
+module.exports = require('./next.config.ts').default;

@@ -14,7 +14,8 @@ import {
   Title,
 } from '@mantine/core';
 
-import { IconGithub, IconGoogle } from '@/components/icons';
+import IconGithub from '@/assets/icons/github.svg?component';
+import IconGoogle from '@/assets/icons/google.svg?component';
 import { useForm } from '@/features/forms';
 
 import { RegisterDto, registerSchema } from '../models';
