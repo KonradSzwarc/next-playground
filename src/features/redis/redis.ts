@@ -1,15 +1,11 @@
 import Redis from 'ioredis';
 
+import { serverEnv } from '../env/server';
+
 declare let global: { redis?: Redis };
 
-export const redis =
-  global.redis ??
-  new Redis({
-    port: Number(process.env.REDIS_PORT),
-    host: process.env.REDIS_HOST,
-    password: process.env.REDIS_PASSWORD,
-  });
+export const redis = global.redis ?? new Redis(serverEnv.redis);
 
-if (process.env.NODE_ENV !== 'production') {
+if (serverEnv.node.isNot.production) {
   global.redis = redis;
 }

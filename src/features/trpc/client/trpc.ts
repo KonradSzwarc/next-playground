@@ -3,6 +3,7 @@ import { createTRPCNext } from '@trpc/next';
 import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
 import superjson from 'superjson';
 
+import { clientEnv } from '@/features/env/client';
 import { getBaseUrl } from '@/utils';
 
 import type { AppRouter } from '../routers/_app';
@@ -14,7 +15,7 @@ export const trpc = createTRPCNext<AppRouter>({
       links: [
         loggerLink({
           enabled: (options) =>
-            process.env.NODE_ENV === 'development' || (options.direction === 'down' && options.result instanceof Error),
+            clientEnv.app.is.local || (options.direction === 'down' && options.result instanceof Error),
         }),
         httpBatchLink({
           url: `${getBaseUrl()}/api/trpc`,
@@ -23,7 +24,7 @@ export const trpc = createTRPCNext<AppRouter>({
       queryClientConfig: {
         defaultOptions: {
           queries: {
-            networkMode: process.env.NODE_ENV === 'development' ? 'always' : 'online',
+            networkMode: clientEnv.app.is.local ? 'always' : 'online',
           },
         },
       },

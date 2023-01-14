@@ -14,6 +14,7 @@ import { get } from 'lodash';
 
 import { prisma } from '@/features/prisma';
 
+import { serverEnv } from '../env/server';
 import { sessionUserSchema } from './models';
 import { getSeconds } from './utils';
 
@@ -93,13 +94,11 @@ export function getNextAuthParams(req: Request, res: Response): SsrResult | Next
     },
     providers: [
       GitHubProvider({
-        clientId: String(process.env.GITHUB_CLIENT_ID),
-        clientSecret: String(process.env.GITHUB_CLIENT_SECRET),
+        ...serverEnv.oauth.github,
         allowDangerousEmailAccountLinking: true,
       }),
       GoogleProvider({
-        clientId: String(process.env.GOOGLE_CLIENT_ID),
-        clientSecret: String(process.env.GOOGLE_CLIENT_SECRET),
+        ...serverEnv.oauth.google,
         allowDangerousEmailAccountLinking: true,
       }),
       CredentialProvider({

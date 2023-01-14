@@ -1,6 +1,8 @@
 import { ComponentProps, createElement, FC } from 'react';
 import { render } from '@faire/mjml-react/utils/render';
 
+import { serverEnv } from '@/features/env/server';
+
 import * as emails from '../emails';
 
 export const getEmailPreviewPageStaticProps =
@@ -9,7 +11,7 @@ export const getEmailPreviewPageStaticProps =
     data: ComponentProps<typeof emails[TemplateName]>,
   ) =>
   () => {
-    if (process.env.NODE_ENV === 'production') {
+    if (serverEnv.node.is.production) {
       return { notFound: true };
     }
 

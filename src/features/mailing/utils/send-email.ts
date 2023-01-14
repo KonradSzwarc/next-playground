@@ -2,6 +2,8 @@ import type { ComponentProps, FC, ReactElement } from 'react';
 import { render } from '@faire/mjml-react/utils/render';
 import nodemailer, { SendMailOptions } from 'nodemailer';
 
+import { serverEnv } from '@/features/env/server';
+
 import * as emails from '../emails';
 
 interface SendEmailProps<TemplateName extends keyof typeof emails> {
@@ -19,12 +21,7 @@ export const sendEmail = async <TemplateName extends keyof typeof emails>({
   template,
   data,
 }: SendEmailProps<TemplateName>) => {
-  const transporter = nodemailer.createTransport({
-    port: Number(process.env.EMAIL_PORT),
-    host: process.env.EMAIL_HOST,
-    secure: false,
-    auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASSWORD },
-  });
+  const transporter = nodemailer.createTransport({ ...serverEnv.email.config, secure: false });
 
   const component = emails[template] as (props: ComponentProps<FC>) => ReactElement;
   const { html, errors } = render(component({ ...data, subject }), {
@@ -40,10 +37,7 @@ export const sendEmail = async <TemplateName extends keyof typeof emails>({
   const mailOptions: SendMailOptions = {
     to,
     subject,
-    from: from ?? {
-      name: String(process.env.EMAIL_FROM_NAME),
-      address: String(process.env.EMAIL_FROM_ADDRESS),
-    },
+    from: from ?? serverEnv.email.from,
     html,
   };
 

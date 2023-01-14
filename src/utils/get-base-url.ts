@@ -1,5 +1,7 @@
+import { clientEnv } from '@/features/env/client';
+
 export const getBaseUrl = () => {
   if (typeof window !== 'undefined') return window.location.origin;
-  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
-  return `http://localhost:${process.env.PORT ?? 3000}`;
+  if (clientEnv.vercel.url) return `https://${clientEnv.vercel.url}`;
+  return `http://localhost:3000`;
 };
