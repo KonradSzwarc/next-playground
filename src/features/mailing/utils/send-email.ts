@@ -11,7 +11,7 @@ interface SendEmailProps<TemplateName extends keyof typeof emails> {
   to: NonNullable<SendMailOptions['to']>;
   subject: string;
   template: TemplateName;
-  data: Omit<ComponentProps<typeof emails[TemplateName]>, 'subject'>;
+  data: Omit<ComponentProps<(typeof emails)[TemplateName]>, 'subject'>;
 }
 
 export const sendEmail = async <TemplateName extends keyof typeof emails>({

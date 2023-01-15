@@ -8,7 +8,7 @@ import * as emails from '../emails';
 export const getEmailPreviewPageStaticProps =
   <TemplateName extends keyof typeof emails>(
     template: TemplateName,
-    data: ComponentProps<typeof emails[TemplateName]>,
+    data: ComponentProps<(typeof emails)[TemplateName]>,
   ) =>
   () => {
     if (serverEnv.node.is.production) {
